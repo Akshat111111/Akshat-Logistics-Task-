@@ -1,131 +1,81 @@
-# Atlan-Challenge-
+# On-Demand Logistics Platform
 
-# Atlan Engineering Internship Task
+## Overview
+This application is an **On-Demand Logistics Platform** built using **Streamlit** for the frontend and **SQLite** for data storage. It provides logistics services that allow users to register, book vehicles, track shipments, and provide feedback on deliveries. The platform includes basic functionalities for drivers and admins to manage their interactions and monitor the service.
 
-### On-Demand Logistics Platform for Goods Transportation
+## Features
+- **User Registration/Login**: Users can register and log in to the platform by providing their username, email, and password.
+- **Vehicle Booking**: Users can book vehicles (car, van, truck) by selecting pickup and dropoff locations. The app estimates the price based on the distance and vehicle type.
+- **Real-Time Tracking**: After booking, users can track the location of their vehicle on a map.
+- **Feedback and Reviews**: After delivery, users can provide feedback and rate the service.
+- **Admin Logs**: Admins can log actions and check the logs for auditing purposes.
+- **Email Notifications**: Booking confirmations are sent via email to the user.
+- **Driver Management**: A simple system for assigning drivers and tracking earnings.
 
----
+## Technologies Used
+- **Streamlit**: For the web interface and interactivity.
+- **SQLite**: For local database management.
+- **Geopy**: For calculating distances between pickup and dropoff locations.
+- **Folium**: For mapping and real-time vehicle tracking.
+- **Smtplib**: For sending email notifications.
+- **Pandas**: For data manipulation.
+- **HTML and CSS**: For custom styling of the web interface.
 
-### **Context:**
+## Setup Instructions
 
-You are tasked with designing and building a highly scalable logistics platform that allows users to book transportation services for moving goods. The platform connects users who need to transport items with a fleet of drivers, providing real-time availability, pricing, and tracking of vehicles. The system should be able to handle extremely high traffic efficiently while ensuring smooth coordination between users and drivers.
+### 1. Install Python
+Ensure you have Python installed on your machine. You can download it from [python.org](https://www.python.org/downloads/). Make sure you have Python 3.6 or higher.
 
-The platform must be able to handle 10,000 requests per second, with a registered base of 100,000 drivers and 50 million users globally.
 
----
+### 2. Database Setup
 
-### **Problem Statement:**
+The application will automatically create the necessary tables in `logistics.db` if they don't already exist:
 
-Design a scalable system that handles the following aspects of the logistics platform:
+## Tables
 
-### **1. User Features:**
+- **users**: Stores user information
+  - ID
+  - username
+  - email
+  - password
 
-- **Booking Service:**
-    - Users should be able to book a vehicle for transporting goods.
-    - The booking should include details like pickup location, drop-off location, type of vehicle required, and an estimated cost.
-- **Real-Time Tracking:**
-    - Once a vehicle is booked, users should be able to track the driver’s location in real-time.
-- **Price Estimation:**
-    - Provide an upfront price estimation based on factors like distance, vehicle type, and current demand.
+- **bookings**: Stores booking information
+  - ID
+  - user
+  - driver
+  - pickup
+  - dropoff
+  - vehicle
+  - estimated cost
+  - status
+  - favorite driver
 
-### **2. Driver Features:**
+- **drivers**: Stores driver details
+  - ID
+  - name
+  - vehicle
+  - availability
+  - earnings
 
-- **Job Assignment:**
-    - Drivers should receive and accept booking requests.
-    - After accepting, they should see the pickup and drop-off locations and start the journey.
-- **Job Status Updates:**
-    - Drivers can update the status of the job (e.g., en route to pickup, goods collected, delivered).
+- **tracking**: Stores vehicle tracking data
+  - booking ID
+  - latitude
+  - longitude
 
-### **3. Admin Features:**
+- **reviews**: Stores user feedback and ratings
+  - booking ID
+  - rating
+  - feedback
 
-- **Fleet Management:**
-    - Admins should be able to manage the fleet of available vehicles, monitor driver activity, and analyze booking data.
-- **Data Analytics:**
-    - Implement basic analytics to track the number of trips completed, average trip time, and driver performance.
+- **admin_logs**: Logs admin actions
+  - ID
+  - action
+  - timestamp
 
----
+# Configuration
 
-### **System Design Requirements:**
+To modify the `send_email` function with your Gmail credentials, update the following variables in your code:
 
-1. **Scalability:**
-    - The system should handle **10,000 concurrent requests per second** globally.
-    - Design the system to support a large user base with **50 million registered users** and **100,000 registered drivers**.
-    - Explain how you will handle load balancing, distributed database architectures, and any other techniques to manage this scale.
-2. **Real-Time Data and GPS Tracking:**
-    - Design a mechanism to handle real-time GPS data for **thousands of concurrent users** tracking vehicles.
-    - Discuss how to manage frequent updates to vehicle locations without overloading the system.
-3. **Database Design:**
-    - Design a database schema that supports managing users, drivers, bookings, vehicles, and tracking data for this large-scale operation.
-    - Address how you will handle high-frequency updates (such as vehicle location) while ensuring consistency and performance across databases.
-4. **Matching Algorithm:**
-    - Implement a matching algorithm that efficiently assigns drivers to users based on factors like proximity, vehicle type, and availability, at scale.
-    - Explain how this algorithm will handle **thousands of concurrent users and drivers.**
-5. **Pricing Model:**
-    - Explain how you will build a pricing model that accounts for variables like distance, vehicle size, demand, and global regions.
-    - Address how surge pricing could be implemented and scaled.
-
----
-
-### **Bonus:**
-
-- Add a feature for users to schedule future bookings, and explain how it would impact system performance.
-
----
-
-### **Deliverables:**
-
-### **1. Working Application:**
-
-- Build a web or mobile application that allows users to book transportation services, track vehicles in real-time, and receive price estimates.
-- The application should also allow drivers to accept bookings and update job statuses.
-
-### **2. High-Level Architecture Diagram:**
-
-- Provide a diagram showing the structure of the system, including key components such as load balancers, databases, real-time GPS tracking mechanisms, and caching systems.
-
-### **3. Entity-Relationship (ER) Diagram:**
-
-- Create an ER diagram that defines the relationships between key entities like users, drivers, bookings, vehicles, and payment records.
-
-### **4. Explanation Document:**
-
-- Write a brief document (1-2 pages) explaining:
-    - Major design decisions and trade-offs, especially related to scalability and high-performance handling of real-time data.
-    - How the system is capable of managing the specified high-volume traffic.
-    - How you’ve implemented load balancing and distributed data handling.
-
-### **5. Video Submission:**
-
-- Record a 5-7 minute video where you:
-    - Walk through the application and demonstrate its key features.
-    - Explain the system design and technical decisions made.
-    - Discuss any challenges you faced while building a system of this scale, and how you resolved them.
-
----
-
-### **Evaluation Criteria:**
-
-### **1. System Design:**
-
-- **Scalability and Performance:** Can the system handle 10,000 requests per second, 100,000 drivers, and 50 million registered users?
-- **Real-Time Data Handling:** How efficiently does the system manage real-time GPS tracking and booking updates?
-- **Database Design:** Does the schema support large-scale operations with frequent updates and transactions?
-
-### **2. App Implementation:**
-
-- **Functionality:** Does the app allow users to book rides, track vehicles, and provide accurate price estimates?
-- **Code Quality:** Is the code clean, structured, and maintainable?
-- **Creativity:** Are there any unique features or optimizations that enhance the user or driver experience?
-
-### **3. Communication and Presentation:**
-
-- **Clarity:** How well does the candidate explain their design and approach in the video?
-- **Depth:** Does the candidate demonstrate an understanding of scalability, system performance, and real-time data handling?
-
----
-
-### **Submission Guidelines:**
-
-- **Code:** Upload your project to a GitHub repository and share the link. To prevent plagiarism, we recommend using a meaningless or obfuscated project name.
-- **App:** Optionally deploy the app using a platform like Vercel, Netlify, or Heroku, and share the link.
-- **Documentation, ER Diagram, and Video:** Share links to your architecture diagram, ER diagram, explanation document (PDF), and video walkthrough.
+```python
+from_address = "your_email@gmail.com"
+password = "your_app_specific_password"
