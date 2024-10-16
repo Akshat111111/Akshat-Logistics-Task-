@@ -125,3 +125,9 @@ password = "your_app_specific_password"
 - Comprehensive understanding of scalability, system performance, and real-time data handling is demonstrated.
 - Ability to address potential limitations and propose innovative solutions reflects a strong grasp of the challenges in developing a large-scale logistics platform.
 
+## Entity Relationship Diagram (ER)
+![ER Diagram](ER.png)
+
+## High-Level Diagram (HLD)
+![High-Level Diagram](HLD.png)
+
