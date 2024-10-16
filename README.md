@@ -3,6 +3,11 @@
 ## Overview
 This application is an **On-Demand Logistics Platform** built using **Streamlit** for the frontend and **SQLite** for data storage. It provides logistics services that allow users to register, book vehicles, track shipments, and provide feedback on deliveries. The platform includes basic functionalities for drivers and admins to manage their interactions and monitor the service.
 
+## Video Demo
+Here is a demonstration of the project:
+
+![Video Demo](AkshatLOG.webm)
+
 ## Features
 - **User Registration/Login**: Users can register and log in to the platform by providing their username, email, and password.
 - **Vehicle Booking**: Users can book vehicles (car, van, truck) by selecting pickup and dropoff locations. The app estimates the price based on the distance and vehicle type.
